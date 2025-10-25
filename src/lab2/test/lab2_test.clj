@@ -43,7 +43,7 @@
         simple-integral (integral linear-function l)
         opt-integral (opt-integral linear-function l)
         inf-integral (infinity-integral linear-function l)
-        values (list 30 50 30)]
+        values (list 30 15 15 10)]
     (println "Simple integral")
     (time-integral simple-integral values)
     (println)
