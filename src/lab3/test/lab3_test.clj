@@ -2,7 +2,7 @@
 
 (defn predicate
   [x]
-  (Thread/sleep 20)
+  (Thread/sleep 200)
   (if (odd? x)
     true
     false
@@ -42,3 +42,18 @@
 
 (deftest check-filter
   (is (= (filter predicate (range 30)) (lazy-parallel-filter (range 30) predicate 7 4))))
+
+
+(deftest check-lazy
+  (println "Lazy parallel filter with two threads with 1000")
+  (time (take 1000 (lazy-parallel-filter (range 10000) even? 1000 2)))
+  (println "Lazy parallel filter with two threads with 10")
+  (time (take 10 (lazy-parallel-filter (range 10000) even? 1000 2)))
+
+  (println "Filter without lazy, with two threads with take")
+  (time (take 10 (parallel-filter (range 10000) even? 2)))
+
+  (println "Infinity, lazy filter with two threads with take")
+  (time (take 10 (lazy-parallel-filter (iterate inc 1) even? 1000 2)))
+
+  )
